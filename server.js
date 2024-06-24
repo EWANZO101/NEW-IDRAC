@@ -5,9 +5,6 @@ const https = require('https');
 
 const app = express();
 const port = 3000; // Port on which your server will run
-const IDRAC_HOST = '192.168.4.10'; // Replace with your IDRAC IP address
-const IDRAC_USERNAME = 'user'; // Replace with your IDRAC username
-const IDRAC_PASSWORD = 'pass'; // Replace with your IDRAC password
 
 // Middleware for parsing JSON bodies
 app.use(bodyParser.json());
@@ -16,6 +13,11 @@ app.use(bodyParser.json());
 const axiosInstance = axios.create({
     httpsAgent: new https.Agent({ rejectUnauthorized: false })
 });
+
+// Replace with your IDRAC details
+const IDRAC_HOST = '192.168.4.10'; // Replace with your IDRAC IP address
+const IDRAC_USERNAME = 'asmin'; // Replace with your IDRAC username
+const IDRAC_PASSWORD = 'pass'; // Replace with your IDRAC password
 
 // Endpoint to power on IDRAC
 app.post('/power-on', async (req, res) => {
