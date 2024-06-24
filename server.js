@@ -1,5 +1,3 @@
-// server.js
-
 const express = require('express');
 const axios = require('axios');
 const bodyParser = require('body-parser');
@@ -7,7 +5,7 @@ const https = require('https');
 
 const app = express();
 const port = 3000; // Port on which your server will run
-const IDRAC_HOST = '192.168.1.5'; // Replace with your IDRAC IP address
+const IDRAC_HOST = '192.168.4.10'; // Replace with your IDRAC IP address
 const IDRAC_USERNAME = 'user'; // Replace with your IDRAC username
 const IDRAC_PASSWORD = 'pass'; // Replace with your IDRAC password
 
@@ -61,6 +59,13 @@ app.post('/power-off', async (req, res) => {
         console.error('Error powering off IDRAC:', error);
         res.status(500).send('Error powering off IDRAC');
     }
+});
+
+// Endpoint to get server status
+app.get('/server-status', (req, res) => {
+    // Simulating server status for demonstration
+    const serverStatus = Math.random() < 0.8 ? 'online' : 'offline'; // Randomly set to online 80% of the time
+    res.json({ status: serverStatus }); // Return server status as JSON
 });
 
 // Serve static files from the 'public' directory
