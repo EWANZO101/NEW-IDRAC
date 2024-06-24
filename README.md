@@ -87,7 +87,18 @@ npm install express axios body-parser
 # Create Public Directory and Files
 mkdir public
 cd public
-touch index.html style.css script.js
+touch index.html style.css script.js server.js
+
+
+
+
+
+
+SIMPLY nano into all files 
+
+index.html style.css script.js server.js
+and paste the code in each of the files i made and save and it should work 
+
 
 
 
