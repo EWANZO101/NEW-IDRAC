@@ -4,14 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>IDRAC Web Panel</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
-    <div class="container">
-        <h1>IDRAC Web Panel</h1>
-        <div class="buttons">
-            <button id="powerOnBtn">Power On</button>
-            <button id="powerOffBtn">Power Off</button>
+<body class="bg-gray-800 text-white">
+    <div class="container mx-auto mt-8 p-6 bg-gray-900 rounded-lg shadow-lg">
+        <h1 class="text-3xl font-semibold text-center mb-6">IDRAC Web Panel</h1>
+        <div class="flex justify-center">
+            <button id="powerOnBtn" class="px-4 py-2 bg-blue-500 text-white font-semibold rounded mr-2 hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">Power On</button>
+            <button id="powerOffBtn" class="px-4 py-2 bg-red-500 text-white font-semibold rounded hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-50">Power Off</button>
+        </div>
+        <div id="status" class="mt-6 text-center">
+            Server Status: <span id="serverStatus" class="font-semibold"></span>
         </div>
     </div>
     <script src="script.js"></script>
