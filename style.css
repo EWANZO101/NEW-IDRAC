@@ -1,37 +1,40 @@
 /* style.css */
+
+/* Body styles */
 body {
     font-family: Arial, sans-serif;
-    background-color: #f0f0f0;
 }
 
+/* Container styles */
 .container {
     max-width: 600px;
     margin: 0 auto;
     padding: 20px;
-    background-color: #fff;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
 }
 
-h1 {
-    text-align: center;
-    color: #333;
+/* Button styles (already handled by Tailwind) */
+
+/* Status box styles */
+#statusBox {
+    width: 240px; /* Adjust width as needed */
+    margin: 0 auto;
 }
 
-.buttons {
-    display: flex;
-    justify-content: center;
-    margin-top: 20px;
+/* Status indicator styles */
+#statusIndicator {
+    width: 24px;
+    height: 24px;
 }
 
-button {
-    padding: 10px 20px;
-    font-size: 16px;
-    cursor: pointer;
-    margin: 0 10px;
+/* Status color classes */
+.status-green {
+    background-color: #34d399; /* Green */
 }
 
-button:hover {
-    background-color: #ddd;
+.status-red {
+    background-color: #ef4444; /* Red */
+}
+
+.status-yellow {
+    background-color: #fbbf24; /* Yellow */
 }
