@@ -1,3 +1,22 @@
+Summary
+
+    server.js: Sets up the Express server to handle power on/off requests and server status updates.
+    public/index.html: Provides the HTML structure with Tailwind CSS classes for styling and interactive buttons.
+    public/script.js: Handles client-side logic to send requests to the server for powering on/off and updating server status.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 # IDRAC Web Panel
 
 Project structure:
