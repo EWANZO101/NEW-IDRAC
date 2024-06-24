@@ -29,3 +29,9 @@ Create Public Directory and Files
 mkdir public
 cd public
 touch index.html style.css script.js
+
+
+
+to start
+
+node server.js
