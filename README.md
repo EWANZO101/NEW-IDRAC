@@ -35,3 +35,8 @@ npm install express axios body-parser
 mkdir public
 cd public
 touch index.html style.css script.js
+
+
+
+to start your project ```node server.js
+```
