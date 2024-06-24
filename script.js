@@ -1,85 +1,67 @@
 // script.js
 
-document.addEventListener('DOMContentLoaded', () => {
-    const powerOnBtn = document.getElementById('powerOnBtn');
-    const powerOffBtn = document.getElementById('powerOffBtn');
-    const statusIndicator = document.getElementById('statusIndicator');
-    const serverStatusElem = document.getElementById('serverStatus');
+const statusIndicator = document.getElementById('statusIndicator');
+const serverStatusText = document.getElementById('serverStatus');
 
-    // Event listener for Power On button
-    powerOnBtn.addEventListener('click', async () => {
-        try {
-            const response = await fetch('/power-on', { method: 'POST' });
-            if (response.ok) {
-                console.log('IDRAC powered on successfully');
-                updateServerStatus();
-            } else {
-                console.error('Failed to power on IDRAC');
-            }
-        } catch (error) {
-            console.error('Error:', error);
-        }
-    });
-
-    // Event listener for Power Off button
-    powerOffBtn.addEventListener('click', async () => {
-        try {
-            const response = await fetch('/power-off', { method: 'POST' });
-            if (response.ok) {
-                console.log('IDRAC powered off successfully');
-                updateServerStatus();
-            } else {
-                console.error('Failed to power off IDRAC');
-            }
-        } catch (error) {
-            console.error('Error:', error);
-        }
-    });
-
-    // Function to fetch and update server status
-    async function updateServerStatus() {
-        try {
-            const response = await fetch('/server-status');
-            if (response.ok) {
-                const data = await response.json();
-                displayServerStatus(data.status);
-            } else {
-                console.error('Failed to fetch server status');
-                displayServerStatus('offline'); // Fallback to offline status
-            }
-        } catch (error) {
-            console.error('Error:', error);
-            displayServerStatus('offline'); // Fallback to offline status
-        }
+function updateServerStatusIndicator(status) {
+    switch (status) {
+        case 'online':
+            statusIndicator.classList.remove('bg-yellow-500', 'bg-red-500');
+            statusIndicator.classList.add('bg-green-500');
+            break;
+        case 'offline':
+            statusIndicator.classList.remove('bg-yellow-500', 'bg-green-500');
+            statusIndicator.classList.add('bg-red-500');
+            break;
+        case 'starting':
+            statusIndicator.classList.remove('bg-green-500', 'bg-red-500');
+            statusIndicator.classList.add('bg-yellow-500');
+            break;
+        default:
+            statusIndicator.classList.remove('bg-green-500', 'bg-red-500', 'bg-yellow-500');
     }
+}
 
-    // Function to update UI based on server status
-    function displayServerStatus(status) {
-        let statusText = '';
-        let statusClass = '';
-
-        switch (status) {
-            case 'online':
-                statusText = 'Online';
-                statusClass = 'status-green';
-                break;
-            case 'offline':
-                statusText = 'Offline';
-                statusClass = 'status-red';
-                break;
-            default:
-                statusText = 'Starting';
-                statusClass = 'status-yellow';
-                break;
+async function fetchServerStatus() {
+    try {
+        const response = await fetch('/server-status');
+        if (!response.ok) {
+            throw new Error('Failed to fetch server status');
         }
-
-        serverStatusElem.textContent = statusText;
-        statusIndicator.className = `w-12 h-12 mx-auto mb-2 rounded-full ${statusClass}`;
+        const data = await response.json();
+        const { status } = data;
+        serverStatusText.textContent = status.toUpperCase();
+        updateServerStatusIndicator(status);
+    } catch (error) {
+        console.error('Error fetching server status:', error);
+        serverStatusText.textContent = 'ERROR';
+        statusIndicator.classList.remove('bg-green-500', 'bg-red-500', 'bg-yellow-500');
     }
+}
 
-    // Initial fetch for server status
-    updateServerStatus();
+// Initial fetch on page load
+fetchServerStatus();
 
-    // Periodically update server status (every 10 seconds)
-    setInterval(updateServerStatus, 10000);
+// Periodically fetch server status every 5 seconds
+setInterval(fetchServerStatus, 5000);
+
+// Event listeners for power on and power off buttons (dummy implementation)
+document.getElementById('powerOnBtn').addEventListener('click', async () => {
+    try {
+        await fetch('/power-on', { method: 'POST' });
+        console.log('IDRAC powered on successfully');
+        fetchServerStatus(); // Update status immediately after action
+    } catch (error) {
+        console.error('Error powering on IDRAC:', error);
+    }
+});
+
+document.getElementById('powerOffBtn').addEventListener('click', async () => {
+    try {
+        await fetch('/power-off', { method: 'POST' });
+        console.log('IDRAC powered off successfully');
+        fetchServerStatus(); // Update status immediately after action
+    } catch (error) {
+        console.error('Error powering off IDRAC:', error);
+    }
 });
