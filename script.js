@@ -3,6 +3,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     const powerOnBtn = document.getElementById('powerOnBtn');
     const powerOffBtn = document.getElementById('powerOffBtn');
+    const statusIndicator = document.getElementById('statusIndicator');
     const serverStatusElem = document.getElementById('serverStatus');
 
     // Event listener for Power On button
@@ -11,14 +12,12 @@ document.addEventListener('DOMContentLoaded', () => {
             const response = await fetch('/power-on', { method: 'POST' });
             if (response.ok) {
                 console.log('IDRAC powered on successfully');
-                // Optionally update UI or show notification
+                updateServerStatus();
             } else {
                 console.error('Failed to power on IDRAC');
-                // Optionally show error message or retry logic
             }
         } catch (error) {
             console.error('Error:', error);
-            // Handle network or fetch errors
         }
     });
 
@@ -28,14 +27,12 @@ document.addEventListener('DOMContentLoaded', () => {
             const response = await fetch('/power-off', { method: 'POST' });
             if (response.ok) {
                 console.log('IDRAC powered off successfully');
-                // Optionally update UI or show notification
+                updateServerStatus();
             } else {
                 console.error('Failed to power off IDRAC');
-                // Optionally show error message or retry logic
             }
         } catch (error) {
             console.error('Error:', error);
-            // Handle network or fetch errors
         }
     });
 
@@ -45,13 +42,39 @@ document.addEventListener('DOMContentLoaded', () => {
             const response = await fetch('/server-status');
             if (response.ok) {
                 const data = await response.json();
-                serverStatusElem.textContent = data.status.toUpperCase();
+                displayServerStatus(data.status);
             } else {
                 console.error('Failed to fetch server status');
+                displayServerStatus('offline'); // Fallback to offline status
             }
         } catch (error) {
             console.error('Error:', error);
+            displayServerStatus('offline'); // Fallback to offline status
         }
+    }
+
+    // Function to update UI based on server status
+    function displayServerStatus(status) {
+        let statusText = '';
+        let statusClass = '';
+
+        switch (status) {
+            case 'online':
+                statusText = 'Online';
+                statusClass = 'status-green';
+                break;
+            case 'offline':
+                statusText = 'Offline';
+                statusClass = 'status-red';
+                break;
+            default:
+                statusText = 'Starting';
+                statusClass = 'status-yellow';
+                break;
+        }
+
+        serverStatusElem.textContent = statusText;
+        statusIndicator.className = `w-12 h-12 mx-auto mb-2 rounded-full ${statusClass}`;
     }
 
     // Initial fetch for server status
