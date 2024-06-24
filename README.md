@@ -38,5 +38,5 @@ touch index.html style.css script.js
 
 
 
-to start your project ```node server.js
-```
+to start your project - `node server.js`
+
