@@ -1,10 +1,10 @@
 # IDRAC Web Panel
-`├── public/
+├── public/
 │   ├── index.html
 │   ├── style.css
 │   └── script.js
 ├── server.js
-└── README.md`
+└── README.md
 ## Setup Instructions
 
 ### Setup Commands
