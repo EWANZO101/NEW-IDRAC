@@ -1,17 +1,14 @@
 # IDRAC Web Panel
 
-A web application to control and monitor IDRAC server power state using Node.js, Express, Axios, and Tailwind CSS.
+Project structure:
 
-## Project Structure
-
-idrac-web-panel/
-├── public/
-│ ├── index.html
-│ ├── style.css
-│ └── script.js
-├── server.js
-└── README.md
-
+- `idrac-web-panel/`
+  - `public/`
+    - `index.html`
+    - `style.css`
+    - `script.js`
+  - `server.js`
+  - `README.md`
 
 ## Setup Instructions
 
