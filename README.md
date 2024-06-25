@@ -1,3 +1,14 @@
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"Before adding your iDRAC details and making them public, ensure you implement some form of login or access control. An easy option to set up is Cloudflare Access. Here is a link to Cloudflare Access: https://developers.cloudflare.com/cloudflare-one/identity/one-time-pin/
+
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+
+
+
+
+
 Changes to Make:
 
 Find the following section in server.js:
